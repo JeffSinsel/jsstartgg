@@ -2,12 +2,12 @@
 
 // Filtering for the player_id function
 export function player_id_filter(response, player_name) {
-  varplayer_id = null;
+  var player_id = null;
   if (response.event.entrants.nodes === null) {
     return player_id;
   }
 
-  for (varnode of response.event.entrants.nodes[0].participants) {
+  for (var node of response.event.entrants.nodes[0].participants) {
     if (node.gamerTag.toLowerCase() === player_name.toLowerCase()) {
       player_id = node.player.id;
     } else if ((node.participants[0].gamerTag.split("|")[-1]).toLowerCase() === player_name.toLowerCase()) {
@@ -24,7 +24,7 @@ export function event_id_filter(response, event_name) {
     return;
   }
 
-  for (varevent of response.tournament.events) {
+  for (var event of response.tournament.events) {
     if (event.slug.split("/").pop() === event_name) {
       return event.id;
     }
@@ -59,7 +59,7 @@ export function show_with_brackets_filter(response, event_name) {
     return null;
   }
 
-  vardata = {};
+  var data = {};
 
   data.id = response.tournament.id;
   data.name = response.tournament.name;
@@ -70,16 +70,16 @@ export function show_with_brackets_filter(response, event_name) {
   data.endTimestamp = response.tournament.endAt;
   data.entrants = response.tournament.numAttendees;
 
-  for (vari = 0; i < response.tournament.events.length; i++) {
-    varevent = response.tournament.events[i];
+  for (var i = 0; i < response.tournament.events.length; i++) {
+    var event = response.tournament.events[i];
     if (event.slug.split("/")[-1] == event_name) {
       data.eventId = event.id;
       data.eventName = event.name;
       data.eventSlug = event.slug.split('/')[-1];
-      varbracket_ids = [];
+      var bracket_ids = [];
       if (event.phaseGroups != null) {
-        for (varj = 0; j < event.phaseGroups.length; j++) {
-          varnode = event.phaseGroups[j];
+        for (var j = 0; j < event.phaseGroups.length; j++) {
+          var node = event.phaseGroups[j];
           bracket_ids.push(node.id);
         }
       }
@@ -97,9 +97,9 @@ export function show_events_filter(response) {
     return;
   }
 
-  varevent_list = [];
-  for (varevent of response.tournament.events) {
-    varcur_event = {};
+  var event_list = [];
+  for (var event of response.tournament.events) {
+    var cur_event = {};
     cur_event.id = event.id;
     cur_event.name = event.name;
     cur_event.slug = event.slug.split('/').pop();
@@ -168,7 +168,7 @@ export function show_sets_filter(response) {
       cur_set.gameWinners = game_winners_ids;
     }
 
-    varmatch_done = true;
+    var match_done = true;
 
     if (node.slots[0].standing == null) {
       cur_set.entrant1Score = -1;
@@ -211,10 +211,10 @@ export function show_sets_filter(response) {
         cur_set.bracketId = null;
       }
       // This gives player_ids, but it also is made to work with team events
-      for (varj = 0; j < 2; j++) {
-        varplayers = [];
-        for (varuser of node.slots[j].entrant.participants) {
-          varcur_player = {};
+      for (var j = 0; j < 2; j++) {
+        var players = [];
+        for (var user of node.slots[j].entrant.participants) {
+          var cur_player = {};
           if (user.player !== null) {
             cur_player.playerId = user.player.id;
             cur_player.playerTag = user.player.gamerTag;
@@ -251,10 +251,10 @@ export function show_entrants_filter(response) {
     return;
   }
 
-  varentrants = [];
+  var entrants = [];
 
-  for (varnode of response.event.standings.nodes) {
-    varcur_entrant = {};
+  for (var node of response.event.standings.nodes) {
+    var cur_entrant = {};
     cur_entrant.entrantId = node.entrant.id;
     cur_entrant.tag = node.entrant.name;
     cur_entrant.finalPlacement = node.placement;
@@ -264,9 +264,9 @@ export function show_entrants_filter(response) {
       cur_entrant.seed = node.entrant.seeds[0].seedNum;
     }
 
-    varplayers = [];
-    for (varuser of node.entrant.participants) {
-      varcur_player = {};
+    var players = [];
+    for (var user of node.entrant.participants) {
+      var cur_player = {};
       if (user.player.id !== null) {
         cur_player.playerId = user.player.id;
       } else {
@@ -289,12 +289,12 @@ export function show_events_brackets_filter(response, event_name) {
     return;
   }
 
-  varbrackets = {};
+  var brackets = {};
 
-  for (varevent of response.tournament.events) {
+  for (var event of response.tournament.events) {
     if (event.slug.split('/').pop() == event_name) {
-      varbracket_ids = [];
-      for (varnode of event.phaseGroups) {
+      var bracket_ids = [];
+      for (var node of event.phaseGroups) {
         bracket_ids.push(node.id);
       }
 
@@ -312,13 +312,13 @@ export function show_all_event_brackets_filter(response) {
   if (response.tournament === null) {
     return;
   }
-  varbrackets = [];
-  for (vari = 0; i < response.tournament.events.length; i++) {
-    varevent = response.tournament.events[i];
-    varcur_bracket = {};
-    varbracket_ids = [];
+  var brackets = [];
+  for (var i = 0; i < response.tournament.events.length; i++) {
+    var event = response.tournament.events[i];
+    var cur_bracket = {};
+    var bracket_ids = [];
     if (event.phaseGroups !== null) {
-      for (varj = 0; j < event.phaseGroups.length; j++) {
+      for (var j = 0; j < event.phaseGroups.length; j++) {
         bracket_ids.push(event.phaseGroups[j].id);
       }
     }
@@ -342,17 +342,17 @@ export function show_entrant_sets_filter(response) {
     return;
   }
 
-  varsets = [];
+  var sets = [];
 
-  for (varnode of response.event.sets.nodes) {
-    varcur_set = {};
+  for (var node of response.event.sets.nodes) {
+    var cur_set = {};
     cur_set.id = node.id;
     cur_set.entrant1Id = node.slots[0].entrant.id;
     cur_set.entrant2Id = node.slots[1].entrant.id;
     cur_set.entrant1Name = node.slots[0].entrant.name;
     cur_set.entrant2Name = node.slots[1].entrant.name;
 
-    varmatch_done = true;
+    var match_done = true;
 
     if (node.slots[0].standing == null) {
       cur_set.entrant1Score = -1;
@@ -408,10 +408,10 @@ export function show_head_to_head_filter(response, player2_name) {
     return;
   }
 
-  varsets = [];
+  var sets = [];
 
-  for (varnode of response.event.sets.nodes) {
-    varcur_set = {};
+  for (var node of response.event.sets.nodes) {
+    var cur_set = {};
     // Yes, the if statement needs to be this long to account for all cases
     // I don't want to run another query, smash.gg's API can be trash sometimes
     if (
@@ -428,7 +428,7 @@ export function show_head_to_head_filter(response, player2_name) {
       cur_set.entrant2Name = node.slots[1].entrant.name;
 
       // Next 2 if/else blocks make sure there's a result in, sometimes DQs are weird
-      varmatch_done = true;
+      var match_done = true;
       if (node.slots[0].standing === null) {
         cur_set.entrant1Score = -1;
         match_done = false;
@@ -708,18 +708,18 @@ export function bracket_show_entrants_filter(response) {
     return;
   }
 
-  varentrants = [];
+  var entrants = [];
 
-  for (varnode of response.phaseGroup.seeds.nodes) {
-    varcur_entrant = {};
+  for (var node of response.phaseGroup.seeds.nodes) {
+    var cur_entrant = {};
     cur_entrant.entrantId = node.entrant.id;
     cur_entrant.tag = node.entrant.name;
     cur_entrant.finalPlacement = node.placement;
     cur_entrant.seed = node.seedNum;
 
-    varplayers = [];
-    for (varuser of node.entrant.participants) {
-      varcur_player = {};
+    var players = [];
+    for (var user of node.entrant.participants) {
+      var cur_player = {};
       cur_player.playerId = user.player.id;
       cur_player.playerTag = user.player.gamerTag;
       players.push(cur_player);
@@ -908,7 +908,7 @@ export function league_show_filter(response) {
   if (response.league) {
     return
   }
-  vardata = {}
+  var data = {}
   data.id = response.league.id
   data.name = response.league.name
   data.startTimestamp = response.league.startAt
@@ -927,10 +927,10 @@ export function league_show_schedule_filter(response) {
     return;
   }
 
-  varevents = [];
+  var events = [];
 
-  for (varnode of response.league.events.nodes) {
-    varcur_event = {};
+  for (var node of response.league.events.nodes) {
+    var cur_event = {};
     cur_event.eventId = node.id;
     cur_event.eventName = node.name;
     cur_event.eventSlug = node.slug.split('/').pop();
