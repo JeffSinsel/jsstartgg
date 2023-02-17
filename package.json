@@ -1,0 +1,31 @@
+{
+  "name": "jsstartgg",
+  "version": "1.0.0",
+  "description": "Startgg JS API Wrapper -- Updated API Wrapper for Start.gg's GraphQL API (based on @JeremySkalla's pysmashgg)",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "node test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JeffSinsel/jsstartgg.git"
+  },
+  "author": "Jeff Sinsel",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/JeffSinsel/jsstartgg/issues"
+  },
+  "homepage": "https://github.com/JeffSinsel/jsstartgg#readme",
+  "dependencies": {
+    "dotenv": "^16.0.3",
+    "graphql-request": "^5.1.0"
+  },
+  "type": "module",
+  "devDependencies": {},
+  "keywords": [
+    "startgg"
+  ]
+}

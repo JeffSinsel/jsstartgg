@@ -1,6 +1,10 @@
-# Queries for tournaments.py
+// Queries for tournaments.py
 
-PLAYER_ID_QUERY = """query EventEntrants($eventId: ID!, $name: String!) {
+import {
+  gql
+} from 'graphql-request';
+
+export const PLAYER_ID_QUERY = gql `query EventEntrants($eventId: ID!, $name: String!) {
     event(id: $eventId) {
     entrants(query: {
       page: 1
@@ -16,19 +20,19 @@ PLAYER_ID_QUERY = """query EventEntrants($eventId: ID!, $name: String!) {
         }
       }
     }
-    }
-    }"""
+  }
+}`
 
-EVENT_ID_QUERY = """query ($tourneySlug: String!) {
+export const EVENT_ID_QUERY = gql `query ($tourneySlug: String!) {
   tournament(slug: $tourneySlug) {
     events {
       id
       slug
     }
   }
-}"""
+}`
 
-ENTRANT_ID_QUERY = """query EventEntrants($eventId: ID!, $name: String!) {
+export const ENTRANT_ID_QUERY = gql `query EventEntrants($eventId: ID!, $name: String!) {
     event(id: $eventId) {
     entrants(query: {
       page: 1
@@ -42,10 +46,10 @@ ENTRANT_ID_QUERY = """query EventEntrants($eventId: ID!, $name: String!) {
         name
       }
     }
-    }
-    }"""
+  }
+}`
 
-SHOW_QUERY = """query ($tourneySlug: String!) {
+export const SHOW_QUERY = gql `query ($tourneySlug: String!) {
   tournament(slug: $tourneySlug) {
     id
     name
@@ -56,10 +60,10 @@ SHOW_QUERY = """query ($tourneySlug: String!) {
     endAt
     numAttendees
   }
-}"""
+}`
 
 
-SHOW_WITH_BRACKETS_QUERY = """query ($tourneySlug: String!) {
+export const SHOW_WITH_BRACKETS_QUERY = gql `query ($tourneySlug: String!) {
   tournament(slug: $tourneySlug) {
     id
     name
@@ -78,9 +82,9 @@ SHOW_WITH_BRACKETS_QUERY = """query ($tourneySlug: String!) {
       }
     }
   }
-}"""
+}`
 
-SHOW_EVENTS_QUERY = """query ($tourneySlug: String!) {
+export const SHOW_EVENTS_QUERY = gql `query ($tourneySlug: String!) {
   tournament(slug: $tourneySlug) {
     events {
       id
@@ -89,9 +93,9 @@ SHOW_EVENTS_QUERY = """query ($tourneySlug: String!) {
       numEntrants
     }
   }
-}"""
+}`
 
-SHOW_SETS_QUERY = """query EventSets($eventId: ID!, $page: Int!) {
+export const SHOW_SETS_QUERY = gql `query EventSets($eventId: ID!, $page: Int!) {
   event(id: $eventId) {
     tournament {
       id
@@ -145,10 +149,10 @@ SHOW_SETS_QUERY = """query EventSets($eventId: ID!, $page: Int!) {
       }
     }
   }
-}"""
+}`
 
 
-SHOW_ENTRANTS_QUERY = """query EventStandings($eventId: ID!, $page: Int!) {
+export const SHOW_ENTRANTS_QUERY = gql `query EventStandings($eventId: ID!, $page: Int!) {
   event(id: $eventId) {
     id
     name
@@ -173,9 +177,9 @@ SHOW_ENTRANTS_QUERY = """query EventStandings($eventId: ID!, $page: Int!) {
       }
     }
   }
-}"""
+}`
 
-SHOW_EVENT_BRACKETS_QUERY = """query ($tourneySlug: String!) {
+export const SHOW_EVENT_BRACKETS_QUERY = gql `query ($tourneySlug: String!) {
   tournament(slug: $tourneySlug) {
     events {
       name
@@ -185,9 +189,9 @@ SHOW_EVENT_BRACKETS_QUERY = """query ($tourneySlug: String!) {
       }
     }
   }
-}"""
+}`
 
-SHOW_ENTRANT_SETS_QUERY = """query EventSets($eventId: ID!, $entrantId: ID!, $page: Int!) {
+export const SHOW_ENTRANT_SETS_QUERY = gql `query EventSets($eventId: ID!, $entrantId: ID!, $page: Int!) {
   event(id: $eventId) {
     sets(
       page: $page
@@ -219,9 +223,9 @@ SHOW_ENTRANT_SETS_QUERY = """query EventSets($eventId: ID!, $entrantId: ID!, $pa
       }
     }
   }
-}"""
+}`
 
-SHOW_EVENT_BY_GAME_SIZE_DATED_QUERY = """query TournamentsByVideogame($page: Int!, $videogameId: [ID!], $after: Timestamp!, $before: Timestamp!) {
+export const SHOW_EVENT_BY_GAME_SIZE_DATED_QUERY = gql `query TournamentsByVideogame($page: Int!, $videogameId: [ID!], $after: Timestamp!, $before: Timestamp!) {
   tournaments(query: {
     perPage: 32
     page: $page
@@ -250,9 +254,9 @@ SHOW_EVENT_BY_GAME_SIZE_DATED_QUERY = """query TournamentsByVideogame($page: Int
       }
     }
   }
-}"""
+}`
 
-SHOW_LIGHTWEIGHT_RESULTS_QUERY = """query EventStandings($eventId: ID!, $page: Int!,) {
+export const SHOW_LIGHTWEIGHT_RESULTS_QUERY = gql `query EventStandings($eventId: ID!, $page: Int!,) {
   event(id: $eventId) {
     standings(query: {
       perPage: 64,
@@ -267,9 +271,9 @@ SHOW_LIGHTWEIGHT_RESULTS_QUERY = """query EventStandings($eventId: ID!, $page: I
       }
     }
   }
-}"""
+}`
 
-SHOW_BY_COUNTRY_QUERY = """query TournamentsByCountry($countryCode: String!, $page: Int!) {
+export const SHOW_BY_COUNTRY_QUERY = gql `query TournamentsByCountry($countryCode: String!, $page: Int!) {
   tournaments(query: {
     perPage: 32,
     page: $page,
@@ -290,9 +294,9 @@ SHOW_BY_COUNTRY_QUERY = """query TournamentsByCountry($countryCode: String!, $pa
       state
     }
   }
-}"""
+}`
 
-SHOW_BY_STATE_QUERY = """query TournamentsByState($state: String!, $page: Int!) {
+export const SHOW_BY_STATE_QUERY = gql `query TournamentsByState($state: String!, $page: Int!) {
   tournaments(query: {
     perPage: 32
     page: $page
@@ -311,9 +315,9 @@ SHOW_BY_STATE_QUERY = """query TournamentsByState($state: String!, $page: Int!) 
       state
     }
   }
-}"""
+}`
 
-SHOW_BY_RADIUS_QUERY = """query ($page: Int, $coordinates: String!, $radius: String!) {
+export const SHOW_BY_RADIUS_QUERY = gql `query ($page: Int, $coordinates: String!, $radius: String!) {
   tournaments(query: {
     page: $page
     perPage: 32
@@ -337,9 +341,9 @@ SHOW_BY_RADIUS_QUERY = """query ($page: Int, $coordinates: String!, $radius: Str
       state
     }
   }
-}"""
+}`
 
-SHOW_PLAYERS_BY_SPONSOR = """query ($slug:String!, $sponsor: String!) {
+export const SHOW_PLAYERS_BY_SPONSOR = gql `query ($slug:String!, $sponsor: String!) {
   tournament(slug: $slug) {
     participants(query: {
       filter: {
@@ -366,9 +370,9 @@ SHOW_PLAYERS_BY_SPONSOR = """query ($slug:String!, $sponsor: String!) {
       }
     }
   }
-}"""
+}`
 
-SHOW_BY_OWNER_QUERY = """query TournamentsByOwner($ownerId: ID!, $page: Int!) {
+export const SHOW_BY_OWNER_QUERY = gql `query TournamentsByOwner($ownerId: ID!, $page: Int!) {
     tournaments(query: {
       perPage: 25,
       page: $page,
@@ -387,5 +391,4 @@ SHOW_BY_OWNER_QUERY = """query TournamentsByOwner($ownerId: ID!, $page: Int!) {
       state
     }
   }
-}
-"""
+}`

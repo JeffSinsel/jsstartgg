@@ -1,6 +1,9 @@
-# Queries for events.py
+// Queries for events.py
+import {
+  gql
+} from 'graphql-request';
 
-ENTRANT_ID_QUERY = """query EventEntrants($eventId: ID!, $name: String!) {
+export const ENTRANT_ID_QUERY = gql `query EventEntrants($eventId: ID!, $name: String!) {
     event(id: $eventId) {
     entrants(query: {
       page: 1
@@ -15,10 +18,10 @@ ENTRANT_ID_QUERY = """query EventEntrants($eventId: ID!, $name: String!) {
       }
     }
     }
-    }"""
+    }`
 
 
-SHOW_SETS_QUERY = """query EventSets($eventId: ID!, $page: Int!) {
+export const SHOW_SETS_QUERY = gql `query EventSets($eventId: ID!, $page: Int!) {
   event(id: $eventId) {
     tournament {
       id
@@ -72,10 +75,10 @@ SHOW_SETS_QUERY = """query EventSets($eventId: ID!, $page: Int!) {
       }
     }
   }
-}"""
+}`
 
 
-SHOW_ENTRANTS_QUERY = """query EventStandings($eventId: ID!, $page: Int!) {
+export const SHOW_ENTRANTS_QUERY = gql `query EventStandings($eventId: ID!, $page: Int!) {
   event(id: $eventId) {
     id
     name
@@ -100,9 +103,9 @@ SHOW_ENTRANTS_QUERY = """query EventStandings($eventId: ID!, $page: Int!) {
       }
     }
   }
-}"""
+}`
 
-SHOW_ENTRANT_SETS_QUERY = """query EventSets($eventId: ID!, $entrantId: ID!, $page: Int!) {
+export const SHOW_ENTRANT_SETS_QUERY = gql `query EventSets($eventId: ID!, $entrantId: ID!, $page: Int!) {
   event(id: $eventId) {
     sets(
       page: $page
@@ -134,9 +137,9 @@ SHOW_ENTRANT_SETS_QUERY = """query EventSets($eventId: ID!, $entrantId: ID!, $pa
       }
     }
   }
-}"""
+}`
 
-SHOW_LIGHTWEIGHT_RESULTS_QUERY = """query EventStandings($eventId: ID!, $page: Int!,) {
+export const SHOW_LIGHTWEIGHT_RESULTS_QUERY = gql `query EventStandings($eventId: ID!, $page: Int!,) {
   event(id: $eventId) {
     standings(query: {
       perPage: 64,
@@ -151,4 +154,4 @@ SHOW_LIGHTWEIGHT_RESULTS_QUERY = """query EventStandings($eventId: ID!, $page: I
       }
     }
   }
-}"""
+}`

@@ -1,6 +1,9 @@
-# Queries for leagues.py
+// Queries for leagues.py
+import {
+  gql
+} from 'graphql-request';
 
-SHOW_QUERY = """query ($slug: String!){
+export const SHOW_QUERY = gql `query ($slug: String!){
   league(slug: $slug) {
     id
     name
@@ -11,9 +14,9 @@ SHOW_QUERY = """query ($slug: String!){
       id
     }
   }
-}"""
+}`
 
-SHOW_SCHEDULE_QUERY = """query LeagueSchedule ($slug: String!, $page: Int!){
+export const SHOW_SCHEDULE_QUERY = gql `query LeagueSchedule ($slug: String!, $page: Int!){
   league(slug: $slug) {
     id
     name
@@ -35,9 +38,9 @@ SHOW_SCHEDULE_QUERY = """query LeagueSchedule ($slug: String!, $page: Int!){
       }
     }
   }
-}"""
+}`
 
-SHOW_STANDINGS_QUERY = """query LeagueStandings ($slug: String!, $page: Int!){
+export const SHOW_STANDINGS_QUERY = gql `query LeagueStandings ($slug: String!, $page: Int!){
   league(slug: $slug) {
     standings (query: {
       page: $page,
@@ -53,4 +56,4 @@ SHOW_STANDINGS_QUERY = """query LeagueStandings ($slug: String!, $page: Int!){
       }
     }
   }
-}"""
+}`

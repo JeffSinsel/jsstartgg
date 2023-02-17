@@ -1,6 +1,9 @@
-# Queries for players.py
+// Queries for players.py
+import {
+  gql
+} from 'graphql-request';
 
-PLAYER_SHOW_INFO_QUERY = """query ($playerId: ID!) {
+export const PLAYER_SHOW_INFO_QUERY = gql `query ($playerId: ID!) {
   player(id: $playerId) {
     gamerTag
     user {
@@ -17,9 +20,9 @@ PLAYER_SHOW_INFO_QUERY = """query ($playerId: ID!) {
       rank
     }
   }
-} """
+} `
 
-PLAYER_SHOW_TOURNAMENTS_QUERY = """query ($playerId: ID!, $page: Int!) {
+export const PLAYER_SHOW_TOURNAMENTS_QUERY = gql `query ($playerId: ID!, $page: Int!) {
   player (id: $playerId) {
     user {
       tournaments (query: {perPage: 64, page: $page}) {
@@ -34,9 +37,9 @@ PLAYER_SHOW_TOURNAMENTS_QUERY = """query ($playerId: ID!, $page: Int!) {
       }
     }
   }
-}"""
+}`
 
-PLAYER_SHOW_TOURNAMENTS_FOR_GAME_QUERY = """query ($playerId: ID!, $playerName: String!, $videogameId: [ID!], $page: Int!) {
+export const PLAYER_SHOW_TOURNAMENTS_FOR_GAME_QUERY = gql `query ($playerId: ID!, $playerName: String!, $videogameId: [ID!], $page: Int!) {
   player (id: $playerId) {
     user {
       tournaments (query: {perPage: 25, page: $page, filter: {videogameId: $videogameId}}) {
@@ -65,4 +68,4 @@ PLAYER_SHOW_TOURNAMENTS_FOR_GAME_QUERY = """query ($playerId: ID!, $playerName: 
       }
     }
   }
-}"""
+}`

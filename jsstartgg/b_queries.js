@@ -1,6 +1,9 @@
-# Queries for brackets.py
+// Queries for brackets.py
+import {
+  gql
+} from "graphql-request"
 
-BRACKET_SHOW_ENTRANTS_QUERY = """query ($phaseGroupId: ID!, $page: Int!) {
+export const BRACKET_SHOW_ENTRANTS_QUERY = gql `query ($phaseGroupId: ID!, $page: Int!) {
   phaseGroup(id: $phaseGroupId) {
     id
     seeds (query: {page: $page, perPage: 32}) {
@@ -20,9 +23,9 @@ BRACKET_SHOW_ENTRANTS_QUERY = """query ($phaseGroupId: ID!, $page: Int!) {
       }
     }
   }
-}"""
+}`
 
-BRACKET_SHOW_SETS_QUERY = """query PhaseGroupSets($phaseGroupId: ID!, $page:Int!){
+export const BRACKET_SHOW_SETS_QUERY = gql `query PhaseGroupSets($phaseGroupId: ID!, $page:Int!){
   phaseGroup(id:$phaseGroupId){
     phase {
       name
@@ -56,4 +59,4 @@ BRACKET_SHOW_SETS_QUERY = """query PhaseGroupSets($phaseGroupId: ID!, $page:Int!
       }
     }
   }
-}"""
+}`
